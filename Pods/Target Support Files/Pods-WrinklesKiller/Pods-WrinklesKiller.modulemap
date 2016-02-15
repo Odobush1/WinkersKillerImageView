@@ -1,0 +1,6 @@
+framework module Pods_WrinklesKiller {
+  umbrella header "Pods-WrinklesKiller-umbrella.h"
+
+  export *
+  module * { export * }
+}

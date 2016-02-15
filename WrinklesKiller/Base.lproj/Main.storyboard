@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
+    </dependencies>
+    <scenes>
+        <!--Home View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="HomeViewController" customModule="WrinklesKiller" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
+                        <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="EtT-Qr-Sez" customClass="ODImproveFaceImageView" customModule="WrinklesKiller">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ktK-pd-j4R">
+                                <rect key="frame" x="530" y="464" width="50" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="Dej-CC-cRK"/>
+                                    <constraint firstAttribute="width" constant="50" id="ywH-PC-Lz2"/>
+                                </constraints>
+                                <state key="normal" image="resultButton"/>
+                                <state key="selected" image="resultButtonSelected"/>
+                                <connections>
+                                    <action selector="handleImageButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="8Rd-mm-xP5"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bcm-v2-h0e">
+                                <rect key="frame" x="530" y="530" width="50" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="3iA-Bd-1Tw"/>
+                                    <constraint firstAttribute="width" constant="50" id="UC6-UO-BM8"/>
+                                </constraints>
+                                <state key="normal" image="newPhotoButton"/>
+                                <state key="selected" image="newPhotoButtonSelected"/>
+                                <connections>
+                                    <action selector="newPhotoButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="AOi-Dg-rlh"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="quh-hd-TwV">
+                                <rect key="frame" x="530" y="398" width="50" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="50" id="WIH-qJ-szH"/>
+                                    <constraint firstAttribute="height" constant="50" id="c4f-eT-xq8"/>
+                                </constraints>
+                                <state key="normal" image="compareButton"/>
+                                <state key="selected" image="compareButtonSelected"/>
+                                <connections>
+                                    <action selector="compareButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="jzl-Xh-DMn"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="EtT-Qr-Sez" secondAttribute="trailing" id="Cvk-D8-QA3"/>
+                            <constraint firstItem="bcm-v2-h0e" firstAttribute="top" secondItem="ktK-pd-j4R" secondAttribute="bottom" constant="16" id="KPF-TV-SUc"/>
+                            <constraint firstItem="EtT-Qr-Sez" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="RWO-uO-ZEq"/>
+                            <constraint firstAttribute="trailing" secondItem="quh-hd-TwV" secondAttribute="trailing" constant="20" id="Rmt-wG-gHb"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="bcm-v2-h0e" secondAttribute="bottom" constant="20" id="Rwn-dG-ReK"/>
+                            <constraint firstItem="EtT-Qr-Sez" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="W6D-ZT-OpO"/>
+                            <constraint firstAttribute="trailing" secondItem="bcm-v2-h0e" secondAttribute="trailing" constant="20" id="XbP-6X-11I"/>
+                            <constraint firstAttribute="trailing" secondItem="ktK-pd-j4R" secondAttribute="trailing" constant="20" id="ZeJ-JS-K9A"/>
+                            <constraint firstItem="ktK-pd-j4R" firstAttribute="top" secondItem="quh-hd-TwV" secondAttribute="bottom" constant="16" id="Zvk-QF-Lcv"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="EtT-Qr-Sez" secondAttribute="bottom" id="g34-Qm-c2f"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="compareButton" destination="quh-hd-TwV" id="nlI-Lw-J6H"/>
+                        <outlet property="imageView" destination="EtT-Qr-Sez" id="bGc-GW-fxM"/>
+                        <outlet property="resultButton" destination="ktK-pd-j4R" id="JS3-MO-Fce"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="268" y="305"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="compareButton" width="27" height="27"/>
+        <image name="compareButtonSelected" width="27" height="27"/>
+        <image name="newPhotoButton" width="27" height="21"/>
+        <image name="newPhotoButtonSelected" width="27" height="21"/>
+        <image name="resultButton" width="27" height="27"/>
+        <image name="resultButtonSelected" width="27" height="27"/>
+    </resources>
+</document>

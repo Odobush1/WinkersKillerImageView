@@ -1,0 +1,434 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		884C65CD1D6511DB894A07A6 /* Pods_WrinklesKiller.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A3E809528DC6336F7CD2DEF /* Pods_WrinklesKiller.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		FABABDD31C569C1300A7902B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FABABDD21C569C1300A7902B /* AppDelegate.swift */; };
+		FABABDD81C569C1300A7902B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FABABDD61C569C1300A7902B /* Main.storyboard */; };
+		FABABDDA1C569C1300A7902B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FABABDD91C569C1300A7902B /* Assets.xcassets */; };
+		FABABDDD1C569C1300A7902B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FABABDDB1C569C1300A7902B /* LaunchScreen.storyboard */; };
+		FAE24AA71C5951400014F8F3 /* GPUImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAE24AA61C5951400014F8F3 /* GPUImage.framework */; };
+		FAE7A4751C651E3F009482D4 /* CGPoint+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAE7A4711C651E3F009482D4 /* CGPoint+Utils.swift */; };
+		FAE7A4771C651E3F009482D4 /* UIImage+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAE7A4731C651E3F009482D4 /* UIImage+Utils.swift */; };
+		FAE7A4781C651E3F009482D4 /* UIViewController+Alerts.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAE7A4741C651E3F009482D4 /* UIViewController+Alerts.swift */; };
+		FAE90FAF1C6095DF005071BB /* ODImproveFaceImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAE90FAE1C6095DF005071BB /* ODImproveFaceImageView.swift */; };
+		FAE90FB21C60962B005071BB /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAE90FB11C60962B005071BB /* HomeViewController.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		2A3E809528DC6336F7CD2DEF /* Pods_WrinklesKiller.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WrinklesKiller.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		55CB6C73F915619DD82AD7BD /* Pods-WrinklesKiller.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WrinklesKiller.release.xcconfig"; path = "Pods/Target Support Files/Pods-WrinklesKiller/Pods-WrinklesKiller.release.xcconfig"; sourceTree = "<group>"; };
+		6C7C53BE4A9DCBDDAFBDAA56 /* Pods-WrinklesKiller.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WrinklesKiller.debug.xcconfig"; path = "Pods/Target Support Files/Pods-WrinklesKiller/Pods-WrinklesKiller.debug.xcconfig"; sourceTree = "<group>"; };
+		FABABDCF1C569C1300A7902B /* WrinklesKiller.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WrinklesKiller.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		FABABDD21C569C1300A7902B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		FABABDD71C569C1300A7902B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		FABABDD91C569C1300A7902B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		FABABDDC1C569C1300A7902B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		FABABDDE1C569C1300A7902B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FAE24AA61C5951400014F8F3 /* GPUImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GPUImage.framework; path = "Pods/../build/Debug-iphoneos/GPUImage.framework"; sourceTree = "<group>"; };
+		FAE7A4711C651E3F009482D4 /* CGPoint+Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "CGPoint+Utils.swift"; path = "Categories/CGPoint+Utils.swift"; sourceTree = "<group>"; };
+		FAE7A4731C651E3F009482D4 /* UIImage+Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIImage+Utils.swift"; path = "Categories/UIImage+Utils.swift"; sourceTree = "<group>"; };
+		FAE7A4741C651E3F009482D4 /* UIViewController+Alerts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIViewController+Alerts.swift"; path = "Categories/UIViewController+Alerts.swift"; sourceTree = "<group>"; };
+		FAE90FAE1C6095DF005071BB /* ODImproveFaceImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ODImproveFaceImageView.swift; path = ODImproveFaceImageView/ODImproveFaceImageView.swift; sourceTree = "<group>"; };
+		FAE90FB11C60962B005071BB /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HomeViewController.swift; path = Controller/HomeViewController.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		FABABDCC1C569C1300A7902B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FAE24AA71C5951400014F8F3 /* GPUImage.framework in Frameworks */,
+				884C65CD1D6511DB894A07A6 /* Pods_WrinklesKiller.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		1F487C5F5E8756AF8D103D2B /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				6C7C53BE4A9DCBDDAFBDAA56 /* Pods-WrinklesKiller.debug.xcconfig */,
+				55CB6C73F915619DD82AD7BD /* Pods-WrinklesKiller.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		B0549920E2D1C9F8A0C1CCA3 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				FAE24AA61C5951400014F8F3 /* GPUImage.framework */,
+				2A3E809528DC6336F7CD2DEF /* Pods_WrinklesKiller.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		FABABDC61C569C1300A7902B = {
+			isa = PBXGroup;
+			children = (
+				FABABDD11C569C1300A7902B /* WrinklesKiller */,
+				FABABDD01C569C1300A7902B /* Products */,
+				1F487C5F5E8756AF8D103D2B /* Pods */,
+				B0549920E2D1C9F8A0C1CCA3 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		FABABDD01C569C1300A7902B /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				FABABDCF1C569C1300A7902B /* WrinklesKiller.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		FABABDD11C569C1300A7902B /* WrinklesKiller */ = {
+			isa = PBXGroup;
+			children = (
+				FAE90FB01C609616005071BB /* Categories */,
+				FAE90FA81C6094A9005071BB /* ODImproveFaceImageView */,
+				FAE90FAC1C60955F005071BB /* Controller */,
+				FABABDD21C569C1300A7902B /* AppDelegate.swift */,
+				FABABDD61C569C1300A7902B /* Main.storyboard */,
+				FAE90FAD1C60959E005071BB /* Supporting Files */,
+			);
+			path = WrinklesKiller;
+			sourceTree = "<group>";
+		};
+		FAE90FA81C6094A9005071BB /* ODImproveFaceImageView */ = {
+			isa = PBXGroup;
+			children = (
+				FAE90FAE1C6095DF005071BB /* ODImproveFaceImageView.swift */,
+			);
+			name = ODImproveFaceImageView;
+			sourceTree = "<group>";
+		};
+		FAE90FAC1C60955F005071BB /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				FAE90FB11C60962B005071BB /* HomeViewController.swift */,
+			);
+			name = Controller;
+			sourceTree = "<group>";
+		};
+		FAE90FAD1C60959E005071BB /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				FABABDD91C569C1300A7902B /* Assets.xcassets */,
+				FABABDDB1C569C1300A7902B /* LaunchScreen.storyboard */,
+				FABABDDE1C569C1300A7902B /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		FAE90FB01C609616005071BB /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				FAE7A4711C651E3F009482D4 /* CGPoint+Utils.swift */,
+				FAE7A4731C651E3F009482D4 /* UIImage+Utils.swift */,
+				FAE7A4741C651E3F009482D4 /* UIViewController+Alerts.swift */,
+			);
+			name = Categories;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		FABABDCE1C569C1300A7902B /* WrinklesKiller */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = FABABDE11C569C1300A7902B /* Build configuration list for PBXNativeTarget "WrinklesKiller" */;
+			buildPhases = (
+				187A7D932B124361E48C503C /* Check Pods Manifest.lock */,
+				FABABDCB1C569C1300A7902B /* Sources */,
+				FABABDCC1C569C1300A7902B /* Frameworks */,
+				FABABDCD1C569C1300A7902B /* Resources */,
+				7945D623C9A16A470A5A836B /* Embed Pods Frameworks */,
+				6082D6D07E72C73230B99F0F /* Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = WrinklesKiller;
+			productName = WrinklesKiller;
+			productReference = FABABDCF1C569C1300A7902B /* WrinklesKiller.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		FABABDC71C569C1300A7902B /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0720;
+				LastUpgradeCheck = 0720;
+				ORGANIZATIONNAME = Alex;
+				TargetAttributes = {
+					FABABDCE1C569C1300A7902B = {
+						CreatedOnToolsVersion = 7.2;
+						DevelopmentTeam = CZG9U6L9P2;
+					};
+				};
+			};
+			buildConfigurationList = FABABDCA1C569C1300A7902B /* Build configuration list for PBXProject "WrinklesKiller" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = FABABDC61C569C1300A7902B;
+			productRefGroup = FABABDD01C569C1300A7902B /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				FABABDCE1C569C1300A7902B /* WrinklesKiller */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		FABABDCD1C569C1300A7902B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FABABDDD1C569C1300A7902B /* LaunchScreen.storyboard in Resources */,
+				FABABDDA1C569C1300A7902B /* Assets.xcassets in Resources */,
+				FABABDD81C569C1300A7902B /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		187A7D932B124361E48C503C /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		6082D6D07E72C73230B99F0F /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-WrinklesKiller/Pods-WrinklesKiller-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		7945D623C9A16A470A5A836B /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-WrinklesKiller/Pods-WrinklesKiller-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		FABABDCB1C569C1300A7902B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FAE90FAF1C6095DF005071BB /* ODImproveFaceImageView.swift in Sources */,
+				FAE7A4781C651E3F009482D4 /* UIViewController+Alerts.swift in Sources */,
+				FAE7A4771C651E3F009482D4 /* UIImage+Utils.swift in Sources */,
+				FABABDD31C569C1300A7902B /* AppDelegate.swift in Sources */,
+				FAE7A4751C651E3F009482D4 /* CGPoint+Utils.swift in Sources */,
+				FAE90FB21C60962B005071BB /* HomeViewController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		FABABDD61C569C1300A7902B /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				FABABDD71C569C1300A7902B /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		FABABDDB1C569C1300A7902B /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				FABABDDC1C569C1300A7902B /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		FABABDDF1C569C1300A7902B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer: Yuriy Berdnikov (DTVY3RGFKW)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Yuriy Berdnikov (DTVY3RGFKW)";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PROVISIONING_PROFILE = "f7738c75-ef30-4e49-afe7-d40a536960ec";
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		FABABDE01C569C1300A7902B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer: Yuriy Berdnikov (DTVY3RGFKW)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Yuriy Berdnikov (DTVY3RGFKW)";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PROVISIONING_PROFILE = "f7738c75-ef30-4e49-afe7-d40a536960ec";
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		FABABDE21C569C1300A7902B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6C7C53BE4A9DCBDDAFBDAA56 /* Pods-WrinklesKiller.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/build/Debug-iphoneos",
+				);
+				INFOPLIST_FILE = WrinklesKiller/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = odobush.WrinklesKiller;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		FABABDE31C569C1300A7902B /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 55CB6C73F915619DD82AD7BD /* Pods-WrinklesKiller.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/build/Debug-iphoneos",
+				);
+				INFOPLIST_FILE = WrinklesKiller/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = odobush.WrinklesKiller;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		FABABDCA1C569C1300A7902B /* Build configuration list for PBXProject "WrinklesKiller" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FABABDDF1C569C1300A7902B /* Debug */,
+				FABABDE01C569C1300A7902B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		FABABDE11C569C1300A7902B /* Build configuration list for PBXNativeTarget "WrinklesKiller" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FABABDE21C569C1300A7902B /* Debug */,
+				FABABDE31C569C1300A7902B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = FABABDC71C569C1300A7902B /* Project object */;
+}
