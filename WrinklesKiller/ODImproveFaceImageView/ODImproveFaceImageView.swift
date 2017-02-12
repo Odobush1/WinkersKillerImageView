@@ -1,26 +1,18 @@
-//
-//  ODImproveFaceImageView.swift
-//  WrinklesKiller
-//
-//  Created by Alex on 2/2/16.
-//  Copyright © 2016 Alex. All rights reserved.
-//
-
 import UIKit
 
 final class ODImproveFaceImageView: UIImageView {
-    private var originalImage: UIImage?
-    private var processedImage: UIImage?
+    fileprivate var originalImage: UIImage?
+    fileprivate var processedImage: UIImage?
     
-    lazy private var activityIndicator: UIActivityIndicatorView? = {
-        let activity = UIActivityIndicatorView.init(activityIndicatorStyle: .WhiteLarge)
-        activity.frame = CGRectMake(0, 0, 30, 30)
+    lazy fileprivate var activityIndicator: UIActivityIndicatorView? = {
+        let activity = UIActivityIndicatorView.init(activityIndicatorStyle: .whiteLarge)
+        activity.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
         activity.center = self.center
         self.addSubview(activity)
         return activity
     }()
     
-    func setOriginalImage(image: UIImage) {
+    func setOriginalImage(_ image: UIImage) {
         prepareImageForHandling(image)
     }
     
@@ -48,71 +40,68 @@ private extension ODImproveFaceImageView {
             return
         }
         activityIndicator?.startAnimating()
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
+        DispatchQueue.global(qos: DispatchQoS.QoSClass.default).async(execute: {
             guard let mask = self.detectFace(workImage) else {
                 self.stopAnimatingOnMainQueue()
                 return
             }
-            guard let bluredImage = workImage.addGPUBlurOnImage() else {
+            guard let bluredImage = workImage.addGPUBlur() else {
                 self.stopAnimatingOnMainQueue()
                 return
             }
-            guard let maskedImage = bluredImage.maskedImageWithMask(mask) else {
+            guard let maskedImage = bluredImage.maskedImage(withMask: mask) else {
                 self.stopAnimatingOnMainQueue()
                 return
             }
-            let scaledPhoto = maskedImage.scaleImageToRect(self.bounds)
-            guard let original = self.originalImage else {
+            
+            guard let original = self.originalImage,
+                let scaledPhoto = maskedImage.scaleImage(toRect: self.bounds) else {
                 self.stopAnimatingOnMainQueue()
                 return
             }
-            self.processedImage = original.combineImageWithImage(scaledPhoto)
+            self.processedImage = original.combineImage(withImage: scaledPhoto)
         
-            dispatch_async(dispatch_get_main_queue(), {
+            DispatchQueue.main.async(execute: {
                 self.stopAnimatingOnMainQueue()
                 self.image = self.processedImage
             })
          })
     }
     
-    func detectFace(undetectedImage: UIImage) -> UIImage? {
-        guard let workImage = CIImage.init(image: undetectedImage) else {
-            return nil
-        }
+    func detectFace(_ undetectedImage: UIImage) -> UIImage? {
+        guard let workImage = CIImage.init(image: undetectedImage) else { return nil }
+        
         let context = CIContext.init(options: [kCIContextUseSoftwareRenderer : true])
         let detector = CIDetector.init(ofType: CIDetectorTypeFace, context: context, options: [CIDetectorAccuracy : CIDetectorAccuracyHigh])
-        let features = detector.featuresInImage(workImage)
+        let features = detector?.features(in: workImage)
         UIGraphicsBeginImageContextWithOptions(undetectedImage.size, false, 1)
         let contextReference = UIGraphicsGetCurrentContext()
-        CGContextTranslateCTM(contextReference, 0, undetectedImage.size.height)
-        CGContextScaleCTM(contextReference, 1, -1)
-        CGContextSaveGState(contextReference)
-        CGContextSetRGBFillColor(contextReference, 1, 0, 1, 1)
-        CGContextFillRect(contextReference, CGRectMake(0, 0, undetectedImage.size.width , undetectedImage.size.height))
-        CGContextRestoreGState(contextReference)
+        contextReference?.translateBy(x: 0, y: undetectedImage.size.height)
+        contextReference?.scaleBy(x: 1, y: -1)
+        contextReference?.saveGState()
+        contextReference?.setFillColor(red: 1, green: 0, blue: 1, alpha: 1)
+        contextReference?.fill(CGRect(x: 0, y: 0, width: undetectedImage.size.width , height: undetectedImage.size.height))
+        contextReference?.restoreGState()
         
         //FIXME: Make for
-        if (features.count == 1) {
-            guard let feature = features[0] as? CIFaceFeature else {
-                return nil
+        if (features?.count == 1) {
+            guard let feature = features?[0] as? CIFaceFeature,
+                let reference = contextReference,
+                let resultImage = self.proccesFeature(feature, contextReference: reference) else {
+                    return nil
             }
-            guard let reference = contextReference else {
-                return nil
-            }
-            guard let resultImage = self.proccesFeature(feature, contextReference: reference) else {
-                return nil
-            }
+            
             return resultImage
         }
         return nil
     }
     
-    func proccesFeature(feature: CIFaceFeature, contextReference: CGContext) -> UIImage? {
-        if !feature.hasLeftEyePosition || !feature.hasRightEyePosition || !feature.hasMouthPosition {
+    func proccesFeature(_ feature: CIFaceFeature, contextReference: CGContext) -> UIImage? {
+        if feature.hasLeftEyePosition == false || feature.hasRightEyePosition == false || feature.hasMouthPosition == false {
             return nil
         }
         
-        CGContextSetRGBFillColor(contextReference, 0, 0, 0, 1)
+        contextReference.setFillColor(red: 0, green: 0, blue: 0, alpha: 1)
         let betweenEyesPoint = feature.leftEyePosition.pointBetweenPoint(feature.rightEyePosition)
         let distanceBetweenEyes = feature.leftEyePosition.distanceToPoint(feature.rightEyePosition)
         let radius = distanceBetweenEyes / 2
@@ -121,60 +110,57 @@ private extension ODImproveFaceImageView {
         let elipsX = betweenEyesPoint.x - (radius * 2) - (radius / 2)
         let elipsY = betweenEyesPoint.y - distanceToNose - (radius * 2)
         let elipsHeight = (distanceToNose * 2) + (radius * 2) + (radius / 2)
-        let rectEllipse = CGRectMake(elipsX, elipsY, faceWidth, elipsHeight)
+        let rectEllipse = CGRect(x: elipsX, y: elipsY, width: faceWidth, height: elipsHeight)
         
-        CGContextSaveGState(contextReference)
+        contextReference.saveGState()
         
         let angle = faceRotationOfFeature(feature)
-        let flowerPetal = CGPathCreateMutable()
-        let midleX = CGRectGetMidX(rectEllipse)
-        let midleY = CGRectGetMidY(rectEllipse)
-        var transform = CGAffineTransformConcat(CGAffineTransformConcat(CGAffineTransformMakeTranslation(-midleX, -midleY),CGAffineTransformMakeRotation(angle)), CGAffineTransformMakeTranslation(midleX, midleY))
-        
-        CGPathAddEllipseInRect(flowerPetal, &transform, rectEllipse)
-        CGContextAddPath(contextReference, flowerPetal)
-        CGContextFillPath(contextReference)
-        CGContextRestoreGState(contextReference)
+        let flowerPetal = CGMutablePath()
+        let midleX = rectEllipse.midX
+        let midleY = rectEllipse.midY
+        let transform = CGAffineTransform(translationX: -midleX, y: -midleY).concatenating(CGAffineTransform(rotationAngle: angle)).concatenating(CGAffineTransform(translationX: midleX, y: midleY))
+       
+        flowerPetal.addEllipse(in: rectEllipse, transform: transform)
+        //CGPathAddEllipseInRect(flowerPetal, &transform, rectEllipse)
+        contextReference.addPath(flowerPetal)
+        contextReference.fillPath()
+        contextReference.restoreGState()
     
         let maskedImage = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
         return maskedImage
     }
 
-    func faceRotationOfFeature(feature: CIFaceFeature) -> CGFloat {
+    func faceRotationOfFeature(_ feature: CIFaceFeature) -> CGFloat {
         let pointX = (feature.rightEyePosition.x + feature.leftEyePosition.x) / 2
         let pointY = (feature.rightEyePosition.y + feature.leftEyePosition.y) / 2
-        let betweenEyesMidPoint = CGPointMake(pointX, pointY)
-        let originEndPoint = CGPointMake(feature.mouthPosition.x, betweenEyesMidPoint.y)
+        let betweenEyesMidPoint = CGPoint(x: pointX, y: pointY)
+        let originEndPoint = CGPoint(x: feature.mouthPosition.x, y: betweenEyesMidPoint.y)
         let angle1 = atan2f(Float(feature.mouthPosition.y - betweenEyesMidPoint.y), Float(feature.mouthPosition.x - betweenEyesMidPoint.x))
         let angle2 = atan2f(Float(feature.mouthPosition.y - originEndPoint.y), Float(feature.mouthPosition.x - originEndPoint.x))
         return CGFloat(angle1 - angle2)
     }
     
-    func prepareImageForHandling(image: UIImage) {
+    func prepareImageForHandling(_ image: UIImage) {
         activityIndicator?.startAnimating()
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
+        DispatchQueue.global(qos: DispatchQoS.QoSClass.default).async(execute: {
             UIGraphicsBeginImageContextWithOptions(self.bounds.size, false, 1)
-            image.drawInRect(self.bounds)
+            image.draw(in: self.bounds)
             let result = UIGraphicsGetImageFromCurrentImageContext()
             UIGraphicsEndImageContext()
             
-            dispatch_async(dispatch_get_main_queue(), {
+            DispatchQueue.main.async(execute: {
                 self.stopAnimatingOnMainQueue()
                 self.originalImage = result
                 self.image = result
             })
         })
     }
-}
-
-private extension ODImproveFaceImageView {
-    func stopAnimatingOnMainQueue() {
-        dispatch_async(dispatch_get_main_queue(), {
-            guard let indicator = self.activityIndicator else {
-                return
-            }
-            indicator.stopAnimating()
+    
+    private func stopAnimatingOnMainQueue() {
+        DispatchQueue.main.async(execute: {
+            self.activityIndicator?.stopAnimating()
         })
     }
 }
+

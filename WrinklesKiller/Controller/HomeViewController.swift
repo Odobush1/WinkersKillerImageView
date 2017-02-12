@@ -1,92 +1,73 @@
-//
-//  HomeViewController.swift
-//  WrinklesKiller
-//
-//  Created by Alex on 1/25/16.
-//  Copyright © 2016 Alex. All rights reserved.
-//
-
 import UIKit
 
 class HomeViewController: UIViewController {
-    @IBOutlet private weak var imageView: ODImproveFaceImageView?
-    @IBOutlet private weak var compareButton: UIButton?
-    @IBOutlet private weak var resultButton: UIButton?
+    @IBOutlet fileprivate weak var imageView: ODImproveFaceImageView!
+    @IBOutlet fileprivate weak var compareButton: UIButton!
+    @IBOutlet fileprivate weak var resultButton: UIButton!
     
-    private var isOriginalPhotoShown: Bool = true
+    fileprivate var isOriginalPhotoShown: Bool = true
     
-    lazy private var imagePicker: UIImagePickerController = {
-            let tempImagePicker = UIImagePickerController.init()
+    lazy fileprivate var imagePicker: UIImagePickerController = {
+            let tempImagePicker = UIImagePickerController()
             tempImagePicker.delegate = self
             tempImagePicker.allowsEditing = false
             
-            if UIImagePickerController.isCameraDeviceAvailable(.Front) {
-                tempImagePicker.sourceType = .Camera
-                tempImagePicker.cameraDevice = .Front
-             } else if UIImagePickerController.isCameraDeviceAvailable(.Rear) {
-                tempImagePicker.sourceType = .Camera
-                tempImagePicker.cameraDevice = .Rear
+            if UIImagePickerController.isCameraDeviceAvailable(.front) {
+                tempImagePicker.sourceType = .camera
+                tempImagePicker.cameraDevice = .front
+             } else if UIImagePickerController.isCameraDeviceAvailable(.rear) {
+                tempImagePicker.sourceType = .camera
+                tempImagePicker.cameraDevice = .rear
             } else {
-                tempImagePicker.sourceType = .PhotoLibrary
+                tempImagePicker.sourceType = .photoLibrary
             }
             return tempImagePicker
     }()
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        if imageView?.image == nil {
-            guard let testImage = UIImage.init(named: "testImage") else {
-                return
-            }
-            imageView?.setOriginalImage(testImage)
+        if imageView.image == nil {
+            guard let testImage = UIImage(named: "testImage") else { return }
+            imageView.setOriginalImage(testImage)
         }
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
-}
-
-//MARK: IBAction
-private extension HomeViewController {
-    @IBAction func newPhotoButtonPressed(sender: UIButton) {
-        self.presentViewController(imagePicker, animated: true, completion: nil)
+    
+    //MARK: IBAction
+    @IBAction func newPhotoButtonPressed(_ sender: UIButton) {
+        present(imagePicker, animated: true, completion: nil)
     }
     
-    @IBAction func handleImageButtonPressed(sender: UIButton) {
-        imageView?.showHandledImage()
-        compareButton?.enabled = true
-        resultButton?.enabled = false
+    @IBAction func handleImageButtonPressed(_ sender: UIButton) {
+        imageView.showHandledImage()
+        compareButton.isEnabled = true
+        resultButton.isEnabled = false
     }
     
-    @IBAction func compareButtonPressed(sender: UIButton) {
+    @IBAction func compareButtonPressed(_ sender: UIButton) {
         isOriginalPhotoShown = !isOriginalPhotoShown
-        
-        if isOriginalPhotoShown {
-            imageView?.showHandledImage()
-            return
-        }
-        imageView?.showOriginalImage()
+        isOriginalPhotoShown ? imageView.showHandledImage() : imageView.showOriginalImage()
     }
 }
 
 //MARK:UIImagePickerControllerDelegate
 extension HomeViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         let image = info[UIImagePickerControllerOriginalImage]
         
-        guard let resultImage = image as? UIImage else {
-            return
-        }
-        imageView?.cleanImageView()
-        imageView?.setOriginalImage(resultImage)
-        compareButton?.enabled = false
-        resultButton?.enabled = true
-        
-        picker.dismissViewControllerAnimated(true, completion: nil)
+        guard let resultImage = image as? UIImage else { return }
+        imageView.cleanImageView()
+        imageView.setOriginalImage(resultImage)
+        compareButton.isEnabled = false
+        resultButton.isEnabled = true
+    
+        picker.dismiss(animated: true, completion: nil)
     }
     
-    func imagePickerControllerDidCancel(picker: UIImagePickerController) {
-        picker.dismissViewControllerAnimated(true, completion: nil)
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        picker.dismiss(animated: true, completion: nil)
     }
 }
