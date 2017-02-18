@@ -5,7 +5,6 @@ use_frameworks!
 target 'WrinklesKiller' do
 
 pod 'GPUImage'
-pod 'SVProgressHUD'
 
 end
 

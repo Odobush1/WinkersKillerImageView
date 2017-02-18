@@ -1,11 +1,11 @@
 import UIKit
 
 class HomeViewController: UIViewController {
-    @IBOutlet fileprivate weak var imageView: ODImproveFaceImageView!
+    @IBOutlet fileprivate weak var imageView: ImproveFaceImageView!
     @IBOutlet fileprivate weak var compareButton: UIButton!
     @IBOutlet fileprivate weak var resultButton: UIButton!
     
-    fileprivate var isOriginalPhotoShown: Bool = true
+    fileprivate var isOriginalPhotoShown = true
     
     lazy fileprivate var imagePicker: UIImagePickerController = {
             let tempImagePicker = UIImagePickerController()
@@ -32,10 +32,6 @@ class HomeViewController: UIViewController {
         }
     }
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-    }
-    
     //MARK: IBAction
     @IBAction func newPhotoButtonPressed(_ sender: UIButton) {
         present(imagePicker, animated: true, completion: nil)
@@ -59,7 +55,6 @@ extension HomeViewController: UIImagePickerControllerDelegate, UINavigationContr
         let image = info[UIImagePickerControllerOriginalImage]
         
         guard let resultImage = image as? UIImage else { return }
-        imageView.cleanImageView()
         imageView.setOriginalImage(resultImage)
         compareButton.isEnabled = false
         resultButton.isEnabled = true

@@ -1,11 +1,11 @@
 import UIKit
 
-final class ODImproveFaceImageView: UIImageView {
+final class ImproveFaceImageView: UIImageView {
     fileprivate var originalImage: UIImage?
     fileprivate var processedImage: UIImage?
     
     lazy fileprivate var activityIndicator: UIActivityIndicatorView? = {
-        let activity = UIActivityIndicatorView.init(activityIndicatorStyle: .whiteLarge)
+        let activity = UIActivityIndicatorView(activityIndicatorStyle: .whiteLarge)
         activity.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
         activity.center = self.center
         self.addSubview(activity)
@@ -13,6 +13,7 @@ final class ODImproveFaceImageView: UIImageView {
     }()
     
     func setOriginalImage(_ image: UIImage) {
+        cleanImageView()
         prepareImageForHandling(image)
     }
     
@@ -28,51 +29,42 @@ final class ODImproveFaceImageView: UIImageView {
         image = originalImage
     }
     
-    func cleanImageView() {
+    private func cleanImageView() {
         originalImage = nil
         processedImage = nil
     }
 }
 
-private extension ODImproveFaceImageView {
+private extension ImproveFaceImageView {
     func handleImage() {
-        guard let workImage = image else {
-            return
-        }
+        guard let workImage = image else { return }
         activityIndicator?.startAnimating()
         DispatchQueue.global(qos: DispatchQoS.QoSClass.default).async(execute: {
-            guard let mask = self.detectFace(workImage) else {
-                self.stopAnimatingOnMainQueue()
-                return
-            }
-            guard let bluredImage = workImage.addGPUBlur() else {
-                self.stopAnimatingOnMainQueue()
-                return
-            }
-            guard let maskedImage = bluredImage.maskedImage(withMask: mask) else {
-                self.stopAnimatingOnMainQueue()
-                return
+            guard let mask = self.detectFaceOn(workImage),
+                let bluredImage = workImage.addGPUBlur(),
+                let maskedImage = bluredImage.maskedImage(withMask: mask),
+                let original = self.originalImage,
+                let scaledPhoto = maskedImage.scaleImage(toRect: self.bounds) else {
+                    DispatchQueue.main.async(execute: {
+                        self.activityIndicator?.stopAnimating()
+                    })
+                    return
             }
             
-            guard let original = self.originalImage,
-                let scaledPhoto = maskedImage.scaleImage(toRect: self.bounds) else {
-                self.stopAnimatingOnMainQueue()
-                return
-            }
             self.processedImage = original.combineImage(withImage: scaledPhoto)
-        
+            
             DispatchQueue.main.async(execute: {
-                self.stopAnimatingOnMainQueue()
+                self.activityIndicator?.stopAnimating()
                 self.image = self.processedImage
             })
-         })
+        })
     }
     
-    func detectFace(_ undetectedImage: UIImage) -> UIImage? {
-        guard let workImage = CIImage.init(image: undetectedImage) else { return nil }
+    func detectFaceOn(_ undetectedImage: UIImage) -> UIImage? {
+        guard let workImage = CIImage(image: undetectedImage) else { return nil }
         
-        let context = CIContext.init(options: [kCIContextUseSoftwareRenderer : true])
-        let detector = CIDetector.init(ofType: CIDetectorTypeFace, context: context, options: [CIDetectorAccuracy : CIDetectorAccuracyHigh])
+        let context = CIContext(options: [kCIContextUseSoftwareRenderer : true])
+        let detector = CIDetector(ofType: CIDetectorTypeFace, context: context, options: [CIDetectorAccuracy : CIDetectorAccuracyHigh])
         let features = detector?.features(in: workImage)
         UIGraphicsBeginImageContextWithOptions(undetectedImage.size, false, 1)
         let contextReference = UIGraphicsGetCurrentContext()
@@ -83,7 +75,7 @@ private extension ODImproveFaceImageView {
         contextReference?.fill(CGRect(x: 0, y: 0, width: undetectedImage.size.width , height: undetectedImage.size.height))
         contextReference?.restoreGState()
         
-        //FIXME: Make for
+        //FIXME: Make for loop
         if (features?.count == 1) {
             guard let feature = features?[0] as? CIFaceFeature,
                 let reference = contextReference,
@@ -102,10 +94,10 @@ private extension ODImproveFaceImageView {
         }
         
         contextReference.setFillColor(red: 0, green: 0, blue: 0, alpha: 1)
-        let betweenEyesPoint = feature.leftEyePosition.pointBetweenPoint(feature.rightEyePosition)
-        let distanceBetweenEyes = feature.leftEyePosition.distanceToPoint(feature.rightEyePosition)
+        let betweenEyesPoint = feature.leftEyePosition.pointBetween(point: feature.rightEyePosition)
+        let distanceBetweenEyes = feature.leftEyePosition.distance(toPoint: feature.rightEyePosition)
         let radius = distanceBetweenEyes / 2
-        let distanceToNose = betweenEyesPoint.distanceToPoint(feature.mouthPosition)
+        let distanceToNose = betweenEyesPoint.distance(toPoint: feature.mouthPosition)
         let faceWidth = radius * 2 + radius * 2 + radius
         let elipsX = betweenEyesPoint.x - (radius * 2) - (radius / 2)
         let elipsY = betweenEyesPoint.y - distanceToNose - (radius * 2)
@@ -119,9 +111,8 @@ private extension ODImproveFaceImageView {
         let midleX = rectEllipse.midX
         let midleY = rectEllipse.midY
         let transform = CGAffineTransform(translationX: -midleX, y: -midleY).concatenating(CGAffineTransform(rotationAngle: angle)).concatenating(CGAffineTransform(translationX: midleX, y: midleY))
-       
+        
         flowerPetal.addEllipse(in: rectEllipse, transform: transform)
-        //CGPathAddEllipseInRect(flowerPetal, &transform, rectEllipse)
         contextReference.addPath(flowerPetal)
         contextReference.fillPath()
         contextReference.restoreGState()
@@ -130,7 +121,7 @@ private extension ODImproveFaceImageView {
         UIGraphicsEndImageContext()
         return maskedImage
     }
-
+    
     func faceRotationOfFeature(_ feature: CIFaceFeature) -> CGFloat {
         let pointX = (feature.rightEyePosition.x + feature.leftEyePosition.x) / 2
         let pointY = (feature.rightEyePosition.y + feature.leftEyePosition.y) / 2
@@ -150,16 +141,10 @@ private extension ODImproveFaceImageView {
             UIGraphicsEndImageContext()
             
             DispatchQueue.main.async(execute: {
-                self.stopAnimatingOnMainQueue()
+                self.activityIndicator?.stopAnimating()
                 self.originalImage = result
                 self.image = result
             })
-        })
-    }
-    
-    private func stopAnimatingOnMainQueue() {
-        DispatchQueue.main.async(execute: {
-            self.activityIndicator?.stopAnimating()
         })
     }
 }
